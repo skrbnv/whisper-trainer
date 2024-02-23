@@ -1,0 +1,44 @@
+whisper:
+  model_name: tiny.en
+  target_language: ru
+  task: transcribe
+  usetimestamps: False
+
+checkpoints:
+  training:
+    dir: checkpoints/saved
+    roll: 3 # keeps last N checkpoints 
+
+optimizer:
+  learning_rate: 0.0005
+  weight_decay: 0.01
+  epsilon: 1.0e-8
+
+scheduler:
+  warmup_steps: 2
+
+training:
+  resume: False
+  resume_checkpoint: path/to/checkpoint.pt
+  decoder_only: True
+  batch_size: 16
+  num_workers: 2
+  epochs: 50
+  gradient_accumulation_steps: 1
+  checkpoints_dir: checkpoints
+
+inference:
+  checkpoint: path/to/checkpoint.pt
+
+dataset:
+  train_dir: path/to/root/dir/of/training/samples
+  val_dir: path/to/root/dir/of/validation/samples
+  train_csv: /path/to/training/csv_file
+  val_csv: /path/to/validation/csv_file
+
+# csv files are semicolon-separated, with three columns: path to file (can be relative) ; transcription ; speaker_id
+# keep audio at 30 sec or less. Anything larger will be trimmed down
+
+comet_ml:
+  use: False
+  project_name: whisper

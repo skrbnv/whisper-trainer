@@ -1,0 +1,9 @@
+comet_ml
+evaluate
+librosa
+munch
+python-dotenv
+PyYAML
+torch
+tqdm
+whisper
